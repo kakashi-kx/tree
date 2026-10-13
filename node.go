@@ -30,8 +30,7 @@ func (t Type) IsMap() bool {
 	return t == TypeMap
 }
 
-// IsValue returns true if t is any value type: TypeNilValue, TypeStringValue,
-// TypeBoolValue or TypeNumberValue (or the TypeValue bitmask itself).
+// IsValue returns true if t has the TypeValue bit set.
 func (t Type) IsValue() bool {
 	return t&TypeValue != 0
 }
@@ -124,7 +123,7 @@ type Any struct {
 
 var _ Node = (*Any)(nil)
 
-// IsNil returns true if the wrapped Node is nil.
+// IsNil delegates to the wrapped Node.
 func (n Any) IsNil() bool {
 	return n.Node.IsNil()
 }
@@ -149,7 +148,7 @@ func (n Any) Value() Value {
 	return n.Node.Value()
 }
 
-// Has checks whether the wrapped Node has the given keys.
+// Has delegates to the wrapped Node.
 func (n Any) Has(keys ...any) bool {
 	return n.Node.Has(keys...)
 }
@@ -159,9 +158,7 @@ func (n Any) Get(keys ...any) Node {
 	return n.Node.Get(keys...)
 }
 
-// Each calls the callback function for each Array or Map value of the wrapped Node.
-// If the wrapped Node is neither, the callback is called once with a nil key
-// and the wrapped Node as value.
+// Each delegates to the wrapped Node.
 func (n Any) Each(cb func(key any, n Node) error) error {
 	return n.Node.Each(cb)
 }

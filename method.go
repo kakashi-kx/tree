@@ -452,9 +452,6 @@ func (q *SortQuery) Exec(n Node) ([]Node, error) {
 		return []Node{n}, nil
 	}
 	a := n.Array()
-	if len(a) <= 1 {
-		return []Node{a}, nil
-	}
 
 	sorted, err := sortNodes(a, q.Query, false)
 	if err != nil {
@@ -500,9 +497,6 @@ func (q *RSortQuery) Exec(n Node) ([]Node, error) {
 		return []Node{n}, nil
 	}
 	a := n.Array()
-	if len(a) <= 1 {
-		return []Node{a}, nil
-	}
 
 	sorted, err := sortNodes(a, q.Query, true)
 	if err != nil {

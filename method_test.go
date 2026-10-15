@@ -311,6 +311,16 @@ func TestMethodQuery(t *testing.T) {
 			q:        &RSortQuery{Expr: ".age", Query: MapQuery("age")},
 			n:        Array{Map{"age": NumberValue(1)}, NumberValue(5)},
 			errstr:   `cannot index array with "age"`,
+		}, {
+			caseName: "sort key query error on single element",
+			q:        &SortQuery{Expr: ".age", Query: MapQuery("age")},
+			n:        Array{NumberValue(5)},
+			errstr:   `cannot index array with "age"`,
+		}, {
+			caseName: "rsort key query error on single element",
+			q:        &RSortQuery{Expr: ".age", Query: MapQuery("age")},
+			n:        Array{NumberValue(5)},
+			errstr:   `cannot index array with "age"`,
 		},
 	}
 	for _, tc := range testCases {
